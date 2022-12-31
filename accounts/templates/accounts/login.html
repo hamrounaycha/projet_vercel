@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load crispy_forms_filters %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+
+
+{%  block content  %}
+ <div class="text-center">
+ {% get_providers as socialaccount_providers %}
+ {% if socialaccount_providers %}
+ 
+   <p>{% blocktrans with site.name as site_name %}Veuillez vous connecter avec un
+    de vos comptes tiers existants.<br>Ou, <a href="{{  signup }}">inscrivez-vous</a>
+    pour un compte {{ site_name }} et connectez-vous ci-dessous :{% endblocktrans %}</p>
+    <div class="socialaccount_ballot">
+
+      <div class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </div>
+
+      <div class="login-or border-top border-bottom my-3">{% trans 'Ou' %}</div>
+
+    </div>
+    
+     {% include "socialaccount/snippets/login_extra.html" %}
+
+    {% else %}
+    <p>{% blocktrans %}Si vous n'avez pas encore créé de compte, veuillez
+    <a href="{{ signup }}">inscrivez-vous</a> d'abord.{% endblocktrans %}</p>
+  
+ 
+ {% endif %}
+ 
+ </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+
+{% for message in messages %}
+<div class="alert-{{message.tags}} alert-dismissble fade show" role ="alert">
+<strong> Message:</strong>{{message}}
+<button type ="button" class="close" data-dismiss="alert" aria-label="close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+
+{% endfor %}
+
+<form method="POST">
+  {% csrf_token %}
+  <p>
+  <label for ="username"> User name </label>
+  <input id ="username" type ="text" name ="username">
+  </p>
+  <p>
+  <label for ="username"> Password </label>
+  <input id ="password" type ="password" name ="password">
+  </p>
+  <div class="form-group">
+    <button class="btn btn-outline-info" type="submit">connexion</button>
+  </div>
+</form>
+
+</div>
+  </div>
+{%  endblock   %}

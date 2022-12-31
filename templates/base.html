@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<a href="{% url 'index' %}">  <h1> Boutique </h1> </a>
+
+{% for message in messages %}
+<div class="alert-{{message.tags}} alert-dismissble fade show" role ="alert">
+<strong> Message:</strong>{{message}}
+<button type ="button" class="close" data-dismiss="alert" aria-label="close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+
+{% endfor %}
+
+
+
+{% if   user.is_authenticated %}
+<h3> Hello {{ user.username }} </h3>
+<h4>You 're successfully logged in </h4>
+<a href="{% url 'logout' %}">  <h2> Deconnexion </h2> </a>
+{% else %}
+<a href="{% url 'login' %}">  <h2> Connexion </h2> </a>
+<a href="{% url 'signup' %}">  <h2> Inscription </h2> </a>
+{% endif %}
+
+{% if   user.cart %}
+<p>
+<a href="{% url 'cart' %}">  <h2> Voir le panier({{user.cart.orders.count}}) </h2> </a>
+{% endif %}
+</p>
+{%  block content  %}
+
+{%  endblock   %}
+</body>
+</html>

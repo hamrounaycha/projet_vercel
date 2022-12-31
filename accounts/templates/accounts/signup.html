@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{%  block content  %}
+{% for message in messages %}
+<div class="alert-{{message.tags}} alert-dismissble fade show" role ="alert">
+<strong> Message:</strong>{{message}}
+<button type ="button" class="close" data-dismiss="alert" aria-label="close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+
+{% endfor %}
+
+
+<h1>S'inscrit </h1>
+
+<form method="POST">
+  {% csrf_token %}
+  <p>
+  <label for ="username"> Username </label>
+  <input id ="username" type ="text" name ="username" Required>
+  </p>
+   <p>
+  <label for ="firstname"> First name </label>
+  <input id ="firstname" type ="text" name ="firstname" Required>
+  </p>
+   <p>
+  <label for =""> Email Address </label>
+  <input id ="email" type ="email" name ="email" Required>
+  </p>
+  <p>
+  <label for =""> Password </label>
+  <input id ="password" type ="password" name ="password" Required>
+  </p>
+   <p>
+  <label for =""> Confirm your password </label>
+  <input id ="password1" type ="password" name ="password1" Required>
+  </p>
+  <div class="form-group">
+    <button class="btn btn-outline-info" type="submit">Sign Up</button>
+  </div>
+</form>
+{%  endblock   %}
